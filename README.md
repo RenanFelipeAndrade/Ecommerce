@@ -38,7 +38,7 @@ with payments managed by Stripe and learn all the
 logic behind an ecommerce web app.
 
 Currently, it is hosted on vercel, you can see the
-end result by [clicking here]()
+end result by [clicking here](https://ecommerce-sanity-stripe-hazel.vercel.app/)
 
 ### Library/Techs
 
