@@ -105,8 +105,6 @@ span.text-red {
 }
 .product-card {
   cursor: pointer;
-  transform: scale(1, 1);
-  transition: transform 0.5s ease;
   color: #324d67;
 }
 .product-card:hover {
@@ -406,6 +404,7 @@ span.text-red {
 }
 .product-detail-container {
   display: flex;
+  justify-content: center;
   gap: 40px;
   margin: 40px;
   margin-top: 60px;
@@ -426,14 +425,16 @@ span.text-red {
 }
 .small-images-container {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
   gap: 10px;
   margin-top: 20px;
 }
 .small-image {
   border-radius: 8px;
   background-color: #ebebeb;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   cursor: pointer;
 }
 
@@ -478,18 +479,19 @@ span.text-red {
 }
 .product-detail-desc .buttons {
   display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
   gap: 30px;
 }
 .buttons .add-to-cart {
+  width: 100%;
   padding: 10px 20px;
   border: 1px solid #f02d34;
-  margin-top: 40px;
   font-size: 18px;
   font-weight: 500;
   background-color: white;
   color: #f02d34;
   cursor: pointer;
-  width: 200px;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
 }
@@ -497,13 +499,12 @@ span.text-red {
   transform: scale(1.1, 1.1);
 }
 .buttons .buy-now {
-  width: 200px;
+  width: 100%;
 
   padding: 10px 20px;
   background-color: #f02d34;
   color: white;
   border: none;
-  margin-top: 40px;
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
@@ -546,11 +547,9 @@ span.text-red {
 }
 .maylike-products-container {
   display: flex;
-  justify-content: center;
-  gap: 15px;
   margin-top: 20px;
 }
-.max-qty {
+.ma-qty {
   font-weight: 500;
   color: #f02d34;
 }
@@ -665,12 +664,16 @@ span.text-red {
   .desc {
     bottom: 60px;
   }
+  .small-image {
+    width: 50px;
+    height: 50px;
+  }
   .product-detail-container {
     flex-wrap: wrap;
   }
   .product-detail-container .product-detail-image {
-    width: 350px;
-    height: 350px;
+    width: 250px;
+    height: 250px;
   }
   .cart-container {
     width: 415px;
@@ -689,14 +692,23 @@ span.text-red {
     width: 25%;
     height: 25%;
   }
-  .buttons .add-to-cart {
-    width: 150px;
-  }
-  .buttons .buy-now {
-    width: 150px;
+  .product-detail-desc .buttons {
+    gap: 15px;
   }
   .product-detail-container {
     margin: 20px;
+  }
+  .slide-content {
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    margin: 0 auto;
+  }
+  .slide-content div {
+    width: 100%;
   }
 
   .item-desc .flex {

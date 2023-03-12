@@ -10,6 +10,9 @@ import Product from "@/components/Product";
 import { useState } from "react";
 import { useStateContext, UseStateContextProps } from "@/context/StateContext";
 import { CartItem } from "@/@types/CartItem";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import { KeenSliderInstance } from "keen-slider";
 
 interface ProductDetailsProps {
   product: CartItem;
@@ -21,12 +24,52 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
   const { name, image, price, details } = product;
   const { setShowCart, incQty, decQty, qty, onAdd } =
     useStateContext() as UseStateContextProps;
+  let intervalIds: number[] = [];
 
   const handleBuyNow = () => {
     onAdd(product, qty);
 
     setShowCart(true);
   };
+
+  const [sliderRef, _] = useKeenSlider({
+    loop: true,
+    created: (event) => {
+      autoPlay(true, event);
+    },
+    dragStarted: (event) => {
+      autoPlay(false, event);
+    },
+    dragEnded: (event) => {
+      autoPlay(true, event);
+    },
+    breakpoints: {
+      "(min-width: 540px)": {
+        slides: { perView: 2.2 },
+      },
+      "(min-width: 768px)": {
+        slides: { perView: 3.3 },
+      },
+      "(min-width: 1024px)": {
+        slides: { perView: 4.4 },
+      },
+      "(min-width: 1280px)": {
+        slides: { perView: 5.5 },
+      },
+    },
+    slides: {
+      perView: 1,
+    },
+  });
+
+  function autoPlay(run: boolean, event: KeenSliderInstance) {
+    intervalIds.forEach((intervalId: number) => clearInterval(intervalId));
+    intervalIds = [];
+    if (run && intervalIds.length === 0) {
+      const newIntervalId = setInterval(event.next, 5000);
+      intervalIds.push(Number(newIntervalId));
+    }
+  }
 
   return (
     <div>
@@ -68,7 +111,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           <div>
             <h4>Details:</h4>
             <p>{details}</p>
-            <p className="price">{price}</p>
+            <p className="price">${price}</p>
             <div className="quantity">
               <h3>Quantity:</h3>
               <p className="quantity-desc">
@@ -99,7 +142,10 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
       <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
         <div className="marquee">
-          <div className="maylike-products-container track">
+          <div
+            className="maylike-products-container keen_slider"
+            ref={sliderRef}
+          >
             {products.map((item, i) => (
               <Product key={i} product={item} />
             ))}

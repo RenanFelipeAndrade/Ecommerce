@@ -8,9 +8,9 @@ interface ProductProps {
 }
 const Product = ({ product: { image, name, slug, price } }: ProductProps) => {
   return (
-    <div>
+    <div className="keen-slider__slide">
       <Link href={`/product/${slug.current}`}>
-        <div className="product-card">
+        <div className="product-card slide-content">
           <img
             src={urlFor(image && image[0]).toString()}
             alt=""
@@ -18,8 +18,10 @@ const Product = ({ product: { image, name, slug, price } }: ProductProps) => {
             height={250}
             className="product-image"
           />
-          <p className="product-name">{name}</p>
-          <p className="product-price">{price}</p>
+          <div>
+            <p className="product-name">{name}</p>
+            <p className="product-price">{price}</p>
+          </div>
         </div>
       </Link>
     </div>
