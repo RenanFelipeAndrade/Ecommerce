@@ -10,13 +10,23 @@ import Product from "@/components/Product";
 import { useState } from "react";
 import { useStateContext, UseStateContextProps } from "@/context/StateContext";
 import { CartItem } from "@/@types/CartItem";
-import { useKeenSlider } from "keen-slider/react";
+import {
+  KeenSliderHooks,
+  KeenSliderOptions,
+  useKeenSlider,
+} from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { KeenSliderInstance } from "keen-slider";
 
 interface ProductDetailsProps {
   product: CartItem;
   products: CartItem[];
+}
+interface Breakpoints {
+  [key: string]: Omit<
+    KeenSliderOptions<{}, {}, KeenSliderHooks>,
+    "breakpoints"
+  >;
 }
 
 const ProductDetails = ({ product, products }: ProductDetailsProps) => {
@@ -32,6 +42,29 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
     setShowCart(true);
   };
 
+  const setBreakpoints = () => {
+    let currentSize = 540;
+
+    // decimal number to show part of next product
+    let perViewNumber = 1 + 0.4;
+    let breakpoints: Breakpoints = {};
+    for (let i = 1; i < products.length; i++) {
+      breakpoints = {
+        ...breakpoints,
+        ...{
+          [`(min-width: ${currentSize}px)`]: {
+            slides: { perView: perViewNumber },
+          },
+        },
+      };
+      if (i === 1) currentSize = 768;
+      else currentSize += 256;
+      perViewNumber += 1;
+    }
+    console.log(breakpoints);
+    return breakpoints;
+  };
+
   const [sliderRef, _] = useKeenSlider({
     loop: true,
     created: (event) => {
@@ -43,20 +76,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
     dragEnded: (event) => {
       autoPlay(true, event);
     },
-    breakpoints: {
-      "(min-width: 540px)": {
-        slides: { perView: 2.2 },
-      },
-      "(min-width: 768px)": {
-        slides: { perView: 3.3 },
-      },
-      "(min-width: 1024px)": {
-        slides: { perView: 4.4 },
-      },
-      "(min-width: 1280px)": {
-        slides: { perView: 5.5 },
-      },
-    },
+    breakpoints: setBreakpoints(),
     slides: {
       perView: 1,
     },
