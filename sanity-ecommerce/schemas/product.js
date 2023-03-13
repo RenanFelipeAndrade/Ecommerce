@@ -36,5 +36,48 @@ export default {
       title: "Details",
       type: "string",
     },
+    {
+      name: "reviews",
+      title: "Reviews",
+      type: "object",
+      fields: [
+        {
+          name: "oneStar",
+          title: "1 Star",
+          type: "number",
+          initialValue: 0,
+        },
+        {
+          name: "twoStar",
+          title: "2 Star",
+          type: "number",
+          initialValue: 0,
+        },
+        {
+          name: "threeStar",
+          title: "3 Star",
+          type: "number",
+          initialValue: 0,
+        },
+        {
+          name: "fourStar",
+          title: "4 Star",
+          type: "number",
+          initialValue: 0,
+        },
+        {
+          name: "fiveStar",
+          title: "5 Star",
+          type: "number",
+          initialValue: 0,
+        },
+        {
+          name: "total",
+          title: "Total",
+          type: "number",
+          initialValue: 0,
+        },
+      ],
+    },
   ],
 };
