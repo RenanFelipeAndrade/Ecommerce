@@ -466,6 +466,10 @@ span.text-red {
   color: #324d67;
   margin-top: 0px;
 }
+.reviews div {
+  display: flex;
+  align-items: center;
+}
 .product-detail-desc .price {
   font-weight: 700;
   font-size: 26px;
