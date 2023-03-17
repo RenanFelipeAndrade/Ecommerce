@@ -1,11 +1,7 @@
 import { client, urlFor } from "lib/client";
 import { GetStaticPaths, GetStaticProps } from "next";
-import {
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiFillStar,
-  AiOutlineStar,
-} from "react-icons/ai";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { IoIosStarHalf, IoIosStar, IoIosStarOutline } from "react-icons/io";
 import Product from "@/components/Product";
 import { useState } from "react";
 import { useStateContext, UseStateContextProps } from "@/context/StateContext";
@@ -17,6 +13,7 @@ import {
 } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { KeenSliderInstance } from "keen-slider";
+import ReactStars from "react-star-rating-component";
 
 interface ProductDetailsProps {
   product: CartItem;
@@ -35,6 +32,15 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
   const { setShowCart, incQty, decQty, qty, onAdd } =
     useStateContext() as UseStateContextProps;
   let intervalIds: number[] = [];
+  const { fiveStar, fourStar, threeStar, twoStar, oneStar, total } =
+    product.reviews;
+  const generalRating = Number(
+    (
+      (1 -
+        (fiveStar + fourStar + threeStar + twoStar + oneStar) / (5 * total)) *
+      5
+    ).toFixed(1)
+  );
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -61,7 +67,6 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
       else currentSize += 256;
       perViewNumber += 1;
     }
-    console.log(breakpoints);
     return breakpoints;
   };
 
@@ -119,14 +124,36 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
         <div className="product-detail-desc">
           <h1>{name}</h1>
           <div className="reviews">
-            <div>
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiOutlineStar />
-            </div>
-            <p>(20)</p>
+            <ReactStars
+              name="rating"
+              starColor="#F02D34"
+              value={generalRating}
+              renderStarIcon={(index, value) => {
+                return (
+                  <span>
+                    {index <= value ? (
+                      <IoIosStar />
+                    ) : (
+                      <IoIosStarOutline color="F02D34" />
+                    )}
+                  </span>
+                );
+              }}
+              renderStarIconHalf={() => {
+                return (
+                  <span>
+                    <span style={{ position: "absolute", color: "F02D34" }}>
+                      <IoIosStarHalf color="F02D34" />
+                    </span>
+                    <span>
+                      <IoIosStarOutline />
+                    </span>
+                  </span>
+                );
+              }}
+            />
+
+            <p>({total})</p>
           </div>
           <div>
             <h4>Details:</h4>
