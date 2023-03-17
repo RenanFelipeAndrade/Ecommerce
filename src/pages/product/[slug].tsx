@@ -1,7 +1,6 @@
 import { client, urlFor } from "lib/client";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { IoIosStarHalf, IoIosStar, IoIosStarOutline } from "react-icons/io";
 import Product from "@/components/Product";
 import { useState } from "react";
 import { useStateContext, UseStateContextProps } from "@/context/StateContext";
@@ -13,7 +12,7 @@ import {
 } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { KeenSliderInstance } from "keen-slider";
-import ReactStars from "react-star-rating-component";
+import { ProductReviews } from "@/components/ProductReviews";
 
 interface ProductDetailsProps {
   product: CartItem;
@@ -70,7 +69,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
     return breakpoints;
   };
 
-  const [sliderRef, _] = useKeenSlider({
+  const [sliderRef, _] = useKeenSlider<HTMLDivElement>({
     loop: true,
     created: (event) => {
       autoPlay(true, event);
@@ -123,38 +122,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
         </div>
         <div className="product-detail-desc">
           <h1>{name}</h1>
-          <div className="reviews">
-            <ReactStars
-              name="rating"
-              starColor="#F02D34"
-              value={generalRating}
-              renderStarIcon={(index, value) => {
-                return (
-                  <span>
-                    {index <= value ? (
-                      <IoIosStar />
-                    ) : (
-                      <IoIosStarOutline color="F02D34" />
-                    )}
-                  </span>
-                );
-              }}
-              renderStarIconHalf={() => {
-                return (
-                  <span>
-                    <span style={{ position: "absolute", color: "F02D34" }}>
-                      <IoIosStarHalf color="F02D34" />
-                    </span>
-                    <span>
-                      <IoIosStarOutline />
-                    </span>
-                  </span>
-                );
-              }}
-            />
-
-            <p>({total})</p>
-          </div>
+          <ProductReviews generalRating={generalRating} total={total} />
           <div>
             <h4>Details:</h4>
             <p>{details}</p>
