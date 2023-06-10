@@ -24,6 +24,7 @@ const Cart = () => {
   } = useStateContext() as UseStateContextProps;
 
   const handleCheckout = async () => {
+    toast.loading("Loading information...");
     const stripe = await getStripe();
 
     if (!stripe) return;
