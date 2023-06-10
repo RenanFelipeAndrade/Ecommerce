@@ -168,7 +168,6 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           </div>
         </div>
       </div>
-      <ReviewSection />
     </div>
   );
 };
