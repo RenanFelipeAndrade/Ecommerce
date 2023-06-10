@@ -13,6 +13,7 @@ import {
 import "keen-slider/keen-slider.min.css";
 import { KeenSliderInstance } from "keen-slider";
 import { ProductReviews } from "@/components/ProductReviews";
+import { ReviewSection } from "@/components/ReviewSection";
 
 interface ProductDetailsProps {
   product: CartItem;
@@ -167,6 +168,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           </div>
         </div>
       </div>
+      <ReviewSection />
     </div>
   );
 };

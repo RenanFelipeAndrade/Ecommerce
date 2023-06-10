@@ -292,6 +292,7 @@ span.text-red {
   font-size: 30px;
   display: flex;
   gap: 10px;
+  cursor: pointer;
 }
 .cart-heading {
   display: flex;
@@ -616,6 +617,19 @@ span.text-red {
 }
 .product-max-qty {
   margin-top: 10px;
+}
+.review-section-container {
+  padding: 0 1rem;
+}
+.review-section-container h2 {
+  color: #324d67;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.comment-section textarea {
+  width: 100%;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 800px) {
